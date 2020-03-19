@@ -1,0 +1,91 @@
+Change Component Designator: OldDesignator=R1 NewDesignator=R4
+Change Component Designator: OldDesignator=R2 NewDesignator=R5
+Change Component Designator: OldDesignator=R3 NewDesignator=R6
+Change Component Designator: OldDesignator=R4 NewDesignator=R7
+Change Component Designator: OldDesignator=R5 NewDesignator=R8
+Change Component Designator: OldDesignator=R6 NewDesignator=R9
+Added Component: Designator=LED1(DISP_0.56_4)
+Added Component: Designator=LED2(DISP_0.56_4)
+Added Component: Designator=Module1(Header F 2.54X4)
+Added Component: Designator=Module2(Header F 2.54X4)
+Added Component: Designator=Module3(Header F 2.54X3)
+Added Component: Designator=Module4(XH_2.54_5P)
+Added Component: Designator=R1(RES_0805)
+Added Component: Designator=R2(RES_0805)
+Added Component: Designator=R3(RES_0805)
+Added Component: Designator=R10(RES_0805)
+Added Component: Designator=RGB1(LED_3528_RGB)
+Added Component: Designator=U5(DIP_24)
+Added Component: Designator=U6(Multiwatt_15)
+Added Pin To Net: NetName=P3.1_TX Pin=Module1-1
+Added Pin To Net: NetName=P3.0_RX Pin=Module1-2
+Added Pin To Net: NetName=GND Pin=Module1-3
+Added Pin To Net: NetName=VCC Pin=Module1-4
+Added Pin To Net: NetName=CH0 Pin=Module2-1
+Added Pin To Net: NetName=GND Pin=Module2-3
+Added Pin To Net: NetName=VCC Pin=Module2-4
+Added Pin To Net: NetName=VCC Pin=Module3-1
+Added Pin To Net: NetName=GND Pin=Module3-3
+Added Pin To Net: NetName=VCC Pin=R10-1
+Added Pin To Net: NetName=VCC Pin=RGB1-4
+Added Pin To Net: NetName=LCD_EN Pin=U1-10
+Added Pin To Net: NetName=LCD_RS Pin=U1-11
+Added Pin To Net: NetName=51_WR Pin=U1-12
+Added Pin To Net: NetName=BUZZ Pin=U1-21
+Added Pin To Net: NetName=51_RD Pin=LCD1-15
+Added Pin To Net: NetName=51_RD Pin=U1-13
+Added Net: Name=51_RD
+Added Pin To Net: NetName=DHT11 Pin=Module3-2
+Added Pin To Net: NetName=DHT11 Pin=R10-2
+Added Net: Name=DHT11
+Added Pin To Net: NetName=NetModule4_1 Pin=Module4-1
+Added Pin To Net: NetName=NetModule4_1 Pin=U6-4
+Added Pin To Net: NetName=NetModule4_1 Pin=U6-9
+Added Net: Name=NetModule4_1
+Added Pin To Net: NetName=NetModule4_2 Pin=Module4-2
+Added Pin To Net: NetName=NetModule4_2 Pin=U6-2
+Added Net: Name=NetModule4_2
+Added Pin To Net: NetName=NetModule4_3 Pin=Module4-3
+Added Pin To Net: NetName=NetModule4_3 Pin=U6-3
+Added Net: Name=NetModule4_3
+Added Pin To Net: NetName=NetModule4_4 Pin=Module4-4
+Added Pin To Net: NetName=NetModule4_4 Pin=U6-13
+Added Net: Name=NetModule4_4
+Added Pin To Net: NetName=NetModule4_5 Pin=Module4-5
+Added Pin To Net: NetName=NetModule4_5 Pin=U6-14
+Added Net: Name=NetModule4_5
+Added Pin To Net: NetName=NetR1_2 Pin=R1-2
+Added Pin To Net: NetName=NetR1_2 Pin=RGB1-3
+Added Net: Name=NetR1_2
+Added Pin To Net: NetName=NetR2_1 Pin=R2-1
+Added Pin To Net: NetName=NetR2_1 Pin=RGB1-2
+Added Net: Name=NetR2_1
+Added Pin To Net: NetName=NetR3_1 Pin=R3-1
+Added Pin To Net: NetName=NetR3_1 Pin=RGB1-1
+Added Net: Name=NetR3_1
+Added Pin To Net: NetName=RGB_B Pin=R1-1
+Added Pin To Net: NetName=RGB_B Pin=U1-20
+Added Net: Name=RGB_B
+Added Pin To Net: NetName=RGB_G Pin=R2-2
+Added Pin To Net: NetName=RGB_G Pin=U1-19
+Added Net: Name=RGB_G
+Added Pin To Net: NetName=RGB_R Pin=R3-2
+Added Pin To Net: NetName=RGB_R Pin=U1-18
+Added Net: Name=RGB_R
+Added Member To Class: ClassName=Sheet_V01 Member=Component C5 104
+Added Member To Class: ClassName=Sheet_V01 Member=Component C6 104
+Added Member To Class: ClassName=Sheet_V01 Member=Component LED1 LED-7SEGx4
+Added Member To Class: ClassName=Sheet_V01 Member=Component LED2 LED-7SEGx4
+Added Member To Class: ClassName=Sheet_V01 Member=Component Module1 HC-05蓝牙模块
+Added Member To Class: ClassName=Sheet_V01 Member=Component Module2 MQ-2烟雾浓度传感器
+Added Member To Class: ClassName=Sheet_V01 Member=Component Module3 DHT11温湿度传感器
+Added Member To Class: ClassName=Sheet_V01 Member=Component Module4 5线4相步进电机
+Added Member To Class: ClassName=Sheet_V01 Member=Component R7 RES_POT
+Added Member To Class: ClassName=Sheet_V01 Member=Component R8 RES_POT
+Added Member To Class: ClassName=Sheet_V01 Member=Component R9 10k
+Added Member To Class: ClassName=Sheet_V01 Member=Component R10 10k
+Added Member To Class: ClassName=Sheet_V01 Member=Component RGB1 LED_RGB_3528
+Added Member To Class: ClassName=Sheet_V01 Member=Component U2 AMS1117-3.3
+Added Member To Class: ClassName=Sheet_V01 Member=Component U5 MAX7219
+Added Member To Class: ClassName=Sheet_V01 Member=Component U6 L298N
+Added Member To Class: ClassName=Sheet_V01 Member=Component USB1 USB

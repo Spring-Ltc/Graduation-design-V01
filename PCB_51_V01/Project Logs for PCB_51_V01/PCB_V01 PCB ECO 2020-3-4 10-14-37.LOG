@@ -1,0 +1,12 @@
+Added Component: Designator=RN1(RES_8P)
+Added Pin To Net: NetName=VCC Pin=RN1-1
+Added Pin To Net: NetName=D0 Pin=RN1-2
+Added Pin To Net: NetName=D1 Pin=RN1-3
+Added Pin To Net: NetName=D2 Pin=RN1-4
+Added Pin To Net: NetName=D3 Pin=RN1-5
+Added Pin To Net: NetName=D4 Pin=RN1-6
+Added Pin To Net: NetName=D5 Pin=RN1-7
+Added Pin To Net: NetName=D6 Pin=RN1-8
+Added Pin To Net: NetName=D7 Pin=RN1-9
+Added Member To Class: ClassName=Sheet_V01 Member=Component RN1 RES
+Added Member To Class: ClassName=Sheet_V01 Member=Component U5 L298N

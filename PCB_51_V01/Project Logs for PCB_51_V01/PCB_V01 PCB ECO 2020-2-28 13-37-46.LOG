@@ -1,0 +1,52 @@
+Added Component: Designator=LCD1(Header F 2.54X20)
+Added Component: Designator=LCD2(Header F 2.54X16)
+Added Pin To Net: NetName=RST Pin=K1-2
+Added Pin To Net: NetName=VCC Pin=U1-29
+Added Pin To Net: NetName=GND Pin=U3-4
+Added Pin To Net: NetName=VCC Pin=U3-8
+Added Pin To Net: NetName=AD_CLK Pin=U3-7
+Added Net: Name=AD_CLK
+Added Pin To Net: NetName=AD_CS Pin=U3-1
+Added Net: Name=AD_CS
+Added Pin To Net: NetName=AD_DI Pin=U3-5
+Added Net: Name=AD_DI
+Added Pin To Net: NetName=AD_DO Pin=U3-6
+Added Net: Name=AD_DO
+Added Pin To Net: NetName=CH0 Pin=U3-2
+Added Net: Name=CH0
+Added Pin To Net: NetName=CH1 Pin=U3-3
+Added Net: Name=CH1
+Added Pin To Net: NetName=D0 Pin=LCD1-7
+Added Pin To Net: NetName=D0 Pin=LCD2-7
+Added Pin To Net: NetName=D0 Pin=U1-37
+Added Net: Name=D0
+Added Pin To Net: NetName=D1 Pin=LCD1-8
+Added Pin To Net: NetName=D1 Pin=LCD2-8
+Added Pin To Net: NetName=D1 Pin=U1-36
+Added Net: Name=D1
+Added Pin To Net: NetName=D2 Pin=LCD1-9
+Added Pin To Net: NetName=D2 Pin=LCD2-9
+Added Pin To Net: NetName=D2 Pin=U1-35
+Added Net: Name=D2
+Added Pin To Net: NetName=D3 Pin=LCD1-10
+Added Pin To Net: NetName=D3 Pin=LCD2-10
+Added Pin To Net: NetName=D3 Pin=U1-34
+Added Net: Name=D3
+Added Pin To Net: NetName=D4 Pin=LCD1-11
+Added Pin To Net: NetName=D4 Pin=LCD2-11
+Added Pin To Net: NetName=D4 Pin=U1-33
+Added Net: Name=D4
+Added Pin To Net: NetName=D5 Pin=LCD1-12
+Added Pin To Net: NetName=D5 Pin=LCD2-12
+Added Pin To Net: NetName=D5 Pin=U1-32
+Added Net: Name=D5
+Added Pin To Net: NetName=D6 Pin=LCD1-13
+Added Pin To Net: NetName=D6 Pin=LCD2-13
+Added Pin To Net: NetName=D6 Pin=U1-31
+Added Net: Name=D6
+Added Pin To Net: NetName=D7 Pin=LCD1-14
+Added Pin To Net: NetName=D7 Pin=LCD2-14
+Added Pin To Net: NetName=D7 Pin=U1-30
+Added Net: Name=D7
+Added Member To Class: ClassName=Sheet_V01 Member=Component LCD1 LCD-12864
+Added Member To Class: ClassName=Sheet_V01 Member=Component LCD2 LCD-1602

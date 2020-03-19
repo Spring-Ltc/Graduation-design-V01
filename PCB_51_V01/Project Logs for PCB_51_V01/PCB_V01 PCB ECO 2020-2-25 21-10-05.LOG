@@ -1,0 +1,4 @@
+Added Component: Designator=U2(SOP-16)
+Added Component: Designator=U3(DIP_8)
+Added Member To Class: ClassName=Sheet_V01 Member=Component U2 CH340G
+Added Member To Class: ClassName=Sheet_V01 Member=Component U3 ADC0832

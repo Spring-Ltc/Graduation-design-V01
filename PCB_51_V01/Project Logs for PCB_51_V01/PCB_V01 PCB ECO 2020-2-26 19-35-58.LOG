@@ -1,0 +1,63 @@
+Change Component Designator: OldDesignator=R1 NewDesignator=R3
+Added Component: Designator=C4(CAP_0805)
+Added Component: Designator=C5(CAP_0805)
+Added Component: Designator=C6(CAP_0805)
+Added Component: Designator=FM1(BUZZ-12*7.5)
+Added Component: Designator=Q1(TO_92A)
+Added Component: Designator=R1(RES_0805)
+Added Component: Designator=R2(RES_0805)
+Added Component: Designator=USB1(USB-A-TH)
+Added Component: Designator=Y2(XTAL1)
+Added Pin To Net: NetName=GND Pin=C4-1
+Added Pin To Net: NetName=GND Pin=C5-1
+Added Pin To Net: NetName=GND Pin=C6-1
+Added Pin To Net: NetName=GND Pin=FM1-2
+Added Pin To Net: NetName=VCC Pin=Q1-3
+Added Pin To Net: NetName=VCC Pin=R1-2
+Added Pin To Net: NetName=GND Pin=U1-16
+Added Pin To Net: NetName=VCC Pin=U1-38
+Added Pin To Net: NetName=GND Pin=U2-1
+Added Pin To Net: NetName=VCC Pin=U2-16
+Added Pin To Net: NetName=VCC Pin=USB1-1
+Added Pin To Net: NetName=GND Pin=USB1-4
+Added Pin To Net: NetName=GND Pin=USB1-5
+Added Pin To Net: NetName=GND Pin=USB1-6
+Added Pin To Net: NetName=BUZZ Pin=R2-1
+Added Net: Name=BUZZ
+Added Pin To Net: NetName=CH340_D+ Pin=U2-5
+Added Net: Name=CH340_D+
+Added Pin To Net: NetName=CH340_D- Pin=U2-6
+Added Net: Name=CH340_D-
+Added Pin To Net: NetName=NetC4_2 Pin=C4-2
+Added Pin To Net: NetName=NetC4_2 Pin=U2-4
+Added Net: Name=NetC4_2
+Added Pin To Net: NetName=NetC5_2 Pin=C5-2
+Added Pin To Net: NetName=NetC5_2 Pin=U2-7
+Added Pin To Net: NetName=NetC5_2 Pin=Y2-2
+Added Net: Name=NetC5_2
+Added Pin To Net: NetName=NetC6_2 Pin=C6-2
+Added Pin To Net: NetName=NetC6_2 Pin=U2-8
+Added Pin To Net: NetName=NetC6_2 Pin=Y2-1
+Added Net: Name=NetC6_2
+Added Pin To Net: NetName=NetFM1_1 Pin=FM1-1
+Added Pin To Net: NetName=NetFM1_1 Pin=Q1-1
+Added Net: Name=NetFM1_1
+Added Pin To Net: NetName=NetQ1_2 Pin=Q1-2
+Added Pin To Net: NetName=NetQ1_2 Pin=R1-1
+Added Pin To Net: NetName=NetQ1_2 Pin=R2-2
+Added Net: Name=NetQ1_2
+Added Pin To Net: NetName=P3.0_RX Pin=U2-2
+Added Net: Name=P3.0_RX
+Added Pin To Net: NetName=P3.1_TX Pin=U1-5
+Added Pin To Net: NetName=P3.1_TX Pin=U1-7
+Added Pin To Net: NetName=P3.1_TX Pin=U2-3
+Added Net: Name=P3.1_TX
+Added Member To Class: ClassName=Sheet_V01 Member=Component C4 104
+Added Member To Class: ClassName=Sheet_V01 Member=Component C5 22p
+Added Member To Class: ClassName=Sheet_V01 Member=Component C6 22p
+Added Member To Class: ClassName=Sheet_V01 Member=Component FM1 BUZZER
+Added Member To Class: ClassName=Sheet_V01 Member=Component Q1 2N3906
+Added Member To Class: ClassName=Sheet_V01 Member=Component R2 1k
+Added Member To Class: ClassName=Sheet_V01 Member=Component R3 10k
+Added Member To Class: ClassName=Sheet_V01 Member=Component USB1 USB
+Added Member To Class: ClassName=Sheet_V01 Member=Component Y2 12MHz

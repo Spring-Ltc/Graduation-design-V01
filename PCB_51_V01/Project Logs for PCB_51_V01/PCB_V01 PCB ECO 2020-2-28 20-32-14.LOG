@@ -1,0 +1,78 @@
+Removed Pin From Net: NetName=VCC Pin=C7-2
+Removed Pin From Net: NetName=VCC Pin=U2-16
+Removed Pin From Net: NetName=VCC Pin=USB1-1
+Removed Pin From Net: NetName=CH340_D- Pin=USB1-2
+Removed Pin From Net: NetName=CH340_D+ Pin=USB1-3
+Change Component Designator: OldDesignator=C5 NewDesignator=C7
+Change Component Designator: OldDesignator=C6 NewDesignator=C8
+Change Component Designator: OldDesignator=C7 NewDesignator=C9
+Change Component Designator: OldDesignator=C8 NewDesignator=C10
+Change Component Designator: OldDesignator=C9 NewDesignator=C11
+Change Component Designator: OldDesignator=C10 NewDesignator=C12
+Change Component Designator: OldDesignator=C11 NewDesignator=C13
+Change Component Designator: OldDesignator=U2 NewDesignator=U3
+Change Component Designator: OldDesignator=U3 NewDesignator=U4
+Change Component Designator: OldDesignator=USB1 NewDesignator=USB2
+Added Component: Designator=C5(CAP_0805)
+Added Component: Designator=C6(CAP_0805)
+Added Component: Designator=D2(LED_0805_R)
+Added Component: Designator=J1(Header 2.54_2X3)
+Added Component: Designator=R6(RES_0805)
+Added Component: Designator=SW1(Switch_6)
+Added Component: Designator=U2(SOT-223_3)
+Added Component: Designator=USB1(USB_Micro_DIP2)
+Added Pin To Net: NetName=GND Pin=C5-1
+Added Pin To Net: NetName=GND Pin=C6-1
+Added Pin To Net: NetName=VCC Pin=C6-2
+Added Pin To Net: NetName=GND Pin=D2-C
+Added Pin To Net: NetName=CH340_D+ Pin=J1-2
+Added Pin To Net: NetName=CH340_D+ Pin=J1-5
+Added Pin To Net: NetName=VCC Pin=R6-1
+Added Pin To Net: NetName=VCC Pin=SW1-1
+Added Pin To Net: NetName=VCC Pin=SW1-6
+Added Pin To Net: NetName=GND Pin=U2-1
+Added Pin To Net: NetName=VCC Pin=U2-3
+Added Pin To Net: NetName=GND Pin=USB1-5
+Added Pin To Net: NetName=GND Pin=USB1-6
+Added Pin To Net: NetName=GND Pin=USB1-7
+Added Pin To Net: NetName=GND Pin=USB1-8
+Added Pin To Net: NetName=GND Pin=USB1-9
+Change Net Name : Old Net Name=NetC5_1 New Net Name=NetC7_1
+Change Net Name : Old Net Name=NetC6_1 New Net Name=NetC8_1
+Change Net Name : Old Net Name=NetC9_2 New Net Name=NetC11_2
+Change Net Name : Old Net Name=NetC10_2 New Net Name=NetC12_2
+Change Net Name : Old Net Name=NetC11_2 New Net Name=NetC13_2
+Added Pin To Net: NetName=5V Pin=C9-2
+Added Pin To Net: NetName=5V Pin=SW1-2
+Added Pin To Net: NetName=5V Pin=SW1-5
+Added Pin To Net: NetName=5V Pin=U3-16
+Added Pin To Net: NetName=5V Pin=USB1-1
+Added Pin To Net: NetName=5V Pin=USB2-1
+Added Net: Name=5V
+Added Pin To Net: NetName=MICRO_D+ Pin=J1-4
+Added Pin To Net: NetName=MICRO_D+ Pin=USB1-3
+Added Net: Name=MICRO_D+
+Added Pin To Net: NetName=MICRO_D- Pin=J1-3
+Added Pin To Net: NetName=MICRO_D- Pin=USB1-2
+Added Net: Name=MICRO_D-
+Added Pin To Net: NetName=NetD2_A Pin=D2-A
+Added Pin To Net: NetName=NetD2_A Pin=R6-2
+Added Net: Name=NetD2_A
+Added Pin To Net: NetName=USB_D+ Pin=J1-6
+Added Pin To Net: NetName=USB_D+ Pin=USB2-3
+Added Net: Name=USB_D+
+Added Pin To Net: NetName=USB_D- Pin=J1-1
+Added Pin To Net: NetName=USB_D- Pin=USB2-2
+Added Net: Name=USB_D-
+Added Pin To Net: NetName=VCC3.3 Pin=C5-2
+Added Pin To Net: NetName=VCC3.3 Pin=U2-2
+Added Pin To Net: NetName=VCC3.3 Pin=U2-4
+Added Net: Name=VCC3.3
+Added Member To Class: ClassName=Sheet_V01 Member=Component C12 22p
+Added Member To Class: ClassName=Sheet_V01 Member=Component C13 22p
+Added Member To Class: ClassName=Sheet_V01 Member=Component D2 LED
+Added Member To Class: ClassName=Sheet_V01 Member=Component J1 Header 2.54_2X3
+Added Member To Class: ClassName=Sheet_V01 Member=Component R6 10k
+Added Member To Class: ClassName=Sheet_V01 Member=Component SW1 Switch-DIP6
+Added Member To Class: ClassName=Sheet_V01 Member=Component U4 ADC0832
+Added Member To Class: ClassName=Sheet_V01 Member=Component USB2 USB

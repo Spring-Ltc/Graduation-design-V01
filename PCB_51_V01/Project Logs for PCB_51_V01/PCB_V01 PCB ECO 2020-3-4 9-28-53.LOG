@@ -1,0 +1,16 @@
+Removed Pin From Net: NetName=GND Pin=C9-1
+Removed Pin From Net: NetName=GND Pin=C10-1
+Removed Pin From Net: NetName=VCC Pin=C10-2
+Removed Pin From Net: NetName=GND Pin=U3-1
+Removed Pin From Net: NetName=VCC Pin=U3-3
+Removed Member From Class: ClassName=Sheet_V01 Member=C12
+Removed Member From Class: ClassName=Sheet_V01 Member=C13
+Removed Member From Class: ClassName=Sheet_V01 Member=U6
+Change Component Designator: OldDesignator=C11 NewDesignator=C9
+Change Component Designator: OldDesignator=C12 NewDesignator=C10
+Change Component Designator: OldDesignator=C13 NewDesignator=C11
+Change Component Designator: OldDesignator=U4 NewDesignator=U3
+Change Component Designator: OldDesignator=U5 NewDesignator=U4
+Change Component Designator: OldDesignator=U6 NewDesignator=U5
+Change Net Name : Old Net Name=NetC11_1 New Net Name=NetC9_1
+Change Net Name : Old Net Name=NetC12_1 New Net Name=NetC10_1

@@ -1,0 +1,167 @@
+C51 COMPILER V9.54   SENSOR                                                                03/15/2020 18:46:41 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE SENSOR
+OBJECT MODULE PLACED IN .\Objects\Sensor.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\Spring Program Files(x86)\MDK4 and MDK5\C51\BIN\C51.EXE Sensor.c OPTIMIZE(8,
+                    -SPEED) BROWSE INCDIR(..\Keil 源代码 - 副本) DEBUG OBJECTEXTEND PRINT(.\Listings\Sensor.lst) TABS(2) OBJECT(.\Objects\Sen
+                    -sor.obj)
+
+line level    source
+
+   1          
+   2          
+   3          
+   4          #include "Sensor.h"
+   5          
+   6          #define CLK_pulse()   _nop_();_nop_();AD_CLK=1;_nop_();_nop_();AD_CLK=0
+   7          
+   8          
+   9          
+  10          //获取温湿度传感器DHT11的值，如果不能正常读取，返回错误的类型
+  11          uchar DHT11_GetValue(uchar *temp,uchar *humi)
+  12          {
+  13   1        uchar value[5] ={0,0,0,0,0};
+  14   1        uchar i,j,time=50;
+  15   1        uchar onebit;
+  16   1        
+  17   1        DHT11 = 1;
+  18   1        delay_ms(2);
+  19   1        DHT11 = 0;
+  20   1        delay_ms(30); //这里至少要延时18ms【仿真延时26.803ms】
+  21   1        
+  22   1        DHT11 = 1;
+  23   1        delay_us(3);//实际延时30us    //主机拉高20--40us后检测响应信号【25延时206us；10延时86us】
+  24   1        time = 50;
+  25   1        while(DHT11 == 1)
+  26   1        {
+  27   2          if(!(--time))
+  28   2            return 1;   //error1：主机拉高后长时间未检测到响应信号
+  29   2        }
+  30   1        
+  31   1        while(DHT11 == 0);  //等待低电平结束
+  32   1        delay_us(3);
+  33   1        if(DHT11 == 0)  
+  34   1          return 2;   //error2：未检测到响应信号的高电平部分
+  35   1        
+  36   1        time = 50;
+  37   1        while(DHT11 == 1) //等待响应信号结束
+  38   1        {
+  39   2          if(!(--time))
+  40   2            return 3;//error3：长时间未检测到bit起始信号
+  41   2      
+  42   2        }
+  43   1        
+  44   1        //下面开始接受数据
+  45   1        for(i=0;i<5;i++)
+  46   1        {
+  47   2          for(j=0;j<8;j++)
+  48   2          {
+  49   3            value[i] <<= 1;
+  50   3            while(DHT11 == 0);//等待当前bit起始信号结束
+  51   3            delay_us(3);  //实际延时30us  //26--28us过后，数据0为低电平，数据1为高电平
+  52   3            onebit = DHT11;
+  53   3            value[i] += onebit;
+C51 COMPILER V9.54   SENSOR                                                                03/15/2020 18:46:41 PAGE 2   
+
+  54   3            time = 50;
+  55   3            while(DHT11 == 1);  //等待信号1的高电平传输完成
+  56   3            {
+  57   4              if(!(--time))
+  58   4                return 4; //error4：接收bit数据异常
+  59   4            }
+  60   3          }
+  61   2        }
+  62   1        DHT11 = 1;//接收完数据，将数据线拉高（理论上这一步没有必要）
+  63   1        
+  64   1        if(value[0]+value[1]+value[2]+value[3] != value[4])
+  65   1          return 5;//error5：数据校验错误
+  66   1        
+  67   1        *temp = value[2];
+  68   1        *humi = value[0];
+  69   1        return 0; 
+  70   1      }
+  71          //END of Function
+  72          
+  73          
+  74          
+  75          
+  76          
+  77          
+  78          //2020/03/15/15:37  测试正常
+  79          
+  80              //上面是DHT11相关函数
+  81          /*-----------------------------------------------------------------------------------------------分割线---
+             ----------------------------------------------------------------------------*/
+  82              //下面是MQ-2相关函数
+  83          
+  84          //2020/03/14/14:12  测试正常
+  85          
+  86          
+  87          
+  88          
+  89          
+  90          
+  91          //获取一次AD转换的结果，入口参数为通道选择，0或1
+  92          uint Get_AD_Value(uchar ch)
+  93          {
+  94   1        uchar i;
+  95   1        uint temp = 0;
+  96   1      
+  97   1        AD_CLK = 0,AD_DI = 1; //初始化，上拉DI以便读取状态
+  98   1        AD_CS = 0;  //使能芯片
+  99   1        
+ 100   1        CLK_pulse();  //起始信号
+ 101   1        
+ 102   1        AD_DI = 1;
+ 103   1        CLK_pulse();//第2个时钟脉冲设置工作模式为单通道
+ 104   1        
+ 105   1        AD_DI = ch;
+ 106   1        CLK_pulse();//第3个时钟脉冲选择通道ch
+ 107   1        
+ 108   1        AD_DO = 1;//上拉后读取数据
+ 109   1        for(i=0;i<8;++i)
+ 110   1        {
+ 111   2          CLK_pulse();
+ 112   2          temp <<=1;
+ 113   2          if(AD_DO == 1)
+ 114   2            temp |=0x01;
+C51 COMPILER V9.54   SENSOR                                                                03/15/2020 18:46:41 PAGE 3   
+
+ 115   2        }
+ 116   1      
+ 117   1        AD_CLK = 0;
+ 118   1        AD_CS = 1;  //结束一次转换
+ 119   1        
+ 120   1        return temp;
+ 121   1      }
+ 122          //END of Function
+ 123          
+ 124          
+ 125          
+ 126          
+ 127          
+ 128          
+ 129          
+ 130          
+ 131          
+ 132          
+ 133          
+ 134          
+ 135          
+ 136          
+ 137          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    307    ----
+   CONSTANT SIZE    =      5    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      14
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

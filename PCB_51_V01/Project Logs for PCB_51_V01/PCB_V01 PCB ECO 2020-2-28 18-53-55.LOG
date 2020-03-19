@@ -1,0 +1,47 @@
+Removed Pin From Net: NetName=GND Pin=R3-1
+Removed Pin From Net: NetName=GND Pin=R3-2
+Removed Pin From Net: NetName=P3.0_RX Pin=U2-2
+Removed Pin From Net: NetName=P3.1_TX Pin=U2-3
+Change Component Designator: OldDesignator=C1 NewDesignator=C2
+Change Component Designator: OldDesignator=C2 NewDesignator=C5
+Change Component Designator: OldDesignator=C3 NewDesignator=C6
+Change Component Designator: OldDesignator=C4 NewDesignator=C9
+Change Component Designator: OldDesignator=C5 NewDesignator=C10
+Change Component Designator: OldDesignator=C6 NewDesignator=C11
+Change Component Designator: OldDesignator=R3 NewDesignator=R4
+Change Component Designator: OldDesignator=R4 NewDesignator=R3
+Added Component: Designator=C1(CAP_0805)
+Added Component: Designator=C3(CAP_0805)
+Added Component: Designator=C4(CAP_0805)
+Added Component: Designator=C7(CAP_0805)
+Added Component: Designator=C8(CAP_0805)
+Added Component: Designator=D1(SOD-123_1206)
+Added Pin To Net: NetName=VCC Pin=C1-1
+Added Pin To Net: NetName=GND Pin=C1-2
+Added Pin To Net: NetName=VCC Pin=C3-1
+Added Pin To Net: NetName=GND Pin=C3-2
+Added Pin To Net: NetName=VCC Pin=C4-1
+Added Pin To Net: NetName=GND Pin=C4-2
+Added Pin To Net: NetName=GND Pin=C7-1
+Added Pin To Net: NetName=VCC Pin=C7-2
+Added Pin To Net: NetName=VCC Pin=C8-1
+Added Pin To Net: NetName=GND Pin=C8-2
+Added Pin To Net: NetName=P3.0_RX Pin=D1-1
+Added Pin To Net: NetName=VCC Pin=R4-1
+Added Pin To Net: NetName=GND Pin=R4-3
+Change Net Name : Old Net Name=NetC2_1 New Net Name=NetC5_1
+Change Net Name : Old Net Name=NetC3_1 New Net Name=NetC6_1
+Change Net Name : Old Net Name=NetC4_2 New Net Name=NetC9_2
+Change Net Name : Old Net Name=NetC5_2 New Net Name=NetC10_2
+Change Net Name : Old Net Name=NetC6_2 New Net Name=NetC11_2
+Added Pin To Net: NetName=NetD1_2 Pin=D1-2
+Added Pin To Net: NetName=NetD1_2 Pin=U2-2
+Added Net: Name=NetD1_2
+Added Pin To Net: NetName=P3.0_TX Pin=U2-3
+Added Net: Name=P3.0_TX
+Added Member To Class: ClassName=Sheet_V01 Member=Component C7 104
+Added Member To Class: ClassName=Sheet_V01 Member=Component C8 22p
+Added Member To Class: ClassName=Sheet_V01 Member=Component C9 104
+Added Member To Class: ClassName=Sheet_V01 Member=Component C10 22p
+Added Member To Class: ClassName=Sheet_V01 Member=Component C11 22p
+Added Member To Class: ClassName=Sheet_V01 Member=Component D1 1N4148

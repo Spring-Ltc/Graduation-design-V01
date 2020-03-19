@@ -1,0 +1,3 @@
+Added Pin To Net: NetName=CH340_D- Pin=USB1-2
+Added Pin To Net: NetName=CH340_D+ Pin=USB1-3
+Added Member To Class: ClassName=Sheet_V01 Member=Component R1 10k

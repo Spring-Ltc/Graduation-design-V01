@@ -1,0 +1,145 @@
+C51 COMPILER V9.54   DISPLAY                                                               03/15/2020 18:46:41 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE DISPLAY
+OBJECT MODULE PLACED IN .\Objects\Display.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\Spring Program Files(x86)\MDK4 and MDK5\C51\BIN\C51.EXE Display.c OPTIMIZE(8
+                    -,SPEED) BROWSE INCDIR(..\Keil 源代码 - 副本) DEBUG OBJECTEXTEND PRINT(.\Listings\Display.lst) TABS(2) OBJECT(.\Objects\D
+                    -isplay.obj)
+
+line level    source
+
+   1          
+   2          
+   3          #include "Display.h"
+   4          
+   5          uchar code number[10]={ 0x7e,0x30,0x6d,0x79,0x33,
+   6                                  0x5b,0x5f,0x70,0x7f,0x7b};  //数字编码0到9
+   7          
+   8          
+   9          //向7219写入内容,包含地址和数据
+  10          void Write7219 (uint Adress,uint Date)
+  11          {
+  12   1         uchar i;
+  13   1         uint adr=Adress,dat=Date;
+  14   1         CS=1;
+  15   1         
+  16   1         for(i=8;i>=1;i--)  //发送地址
+  17   1         {
+  18   2            CLK=0;
+  19   2            DIN=(bit)(adr&0x80);
+  20   2            //DIN=adr;
+  21   2            adr=adr<<1;
+  22   2            CLK=1;
+  23   2         }
+  24   1         for(i=8;i>=1;i--)  //发送数据
+  25   1         {
+  26   2            CLK=0;
+  27   2            DIN=(bit)(dat&0x80);
+  28   2            //DIN=dat;
+  29   2            dat=dat<<1;
+  30   2            CLK=1;
+  31   2         }
+  32   1         CS=0;
+  33   1         CS=1;
+  34   1      }
+  35          //END of Function
+  36          
+  37          
+  38          //初始化7219芯片
+  39          void MAX7219_Init(void)
+  40          {
+  41   1         Write7219 (Mode,0x00); //选择 No Code 
+  42   1         Write7219 (Brightness,0x07); //亮度调节
+  43   1         Write7219 (Size,0x07); //数码管位数，8位全选
+  44   1         Write7219 (Down,0x01); //正常工作模式0x01（省电模式为0x00）
+  45   1         Write7219 (Text,0x00); //显示测试
+  46   1      }
+  47          //END of Function
+  48          
+  49          
+  50          //蜂鸣器打开
+  51          void FM_TurnON(void)
+  52          {
+  53   1        BUZZ = 0;
+C51 COMPILER V9.54   DISPLAY                                                               03/15/2020 18:46:41 PAGE 2   
+
+  54   1      }
+  55          //END of Function
+  56          
+  57          
+  58          //蜂鸣器关闭
+  59          void FM_TurnOFF(void)
+  60          {
+  61   1        BUZZ = 1;
+  62   1      }
+  63          //END of Function
+  64          
+  65          
+  66          void RGB_TurnON(uint color)
+  67          {
+  68   1        switch (color)
+  69   1        {
+  70   2          case red:
+  71   2            RGB_R = 0;break;
+  72   2          case green:
+  73   2            RGB_G = 0;break;
+  74   2          case blue:
+  75   2            RGB_B = 0;break;
+  76   2        }
+  77   1      }
+  78          //END of Function
+  79          
+  80          
+  81          void RGB_TurnOFF(uint color)
+  82          {
+  83   1        switch (color)
+  84   1        {
+  85   2          case red:
+  86   2            RGB_R = 1;break;
+  87   2          case green:
+  88   2            RGB_G = 1;break;
+  89   2          case blue:
+  90   2            RGB_B = 1;break;
+  91   2        }
+  92   1      }
+  93          //END of Function
+  94          
+  95          
+  96          
+  97          
+  98          
+  99          
+ 100          
+ 101          
+ 102          
+ 103          
+ 104          
+ 105          
+ 106          
+ 107          
+ 108          
+ 109          
+ 110          
+ 111          
+ 112          
+ 113          
+ 114          
+ 115          
+C51 COMPILER V9.54   DISPLAY                                                               03/15/2020 18:46:41 PAGE 3   
+
+ 116          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    147    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

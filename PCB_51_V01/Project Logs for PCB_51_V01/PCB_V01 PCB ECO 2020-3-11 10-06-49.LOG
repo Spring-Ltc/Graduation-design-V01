@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=RGB_R Pin=U3-18
+Removed Pin From Net: NetName=RGB_G Pin=U3-19
+Removed Pin From Net: NetName=RGB_B Pin=U3-20
+Removed Pin From Net: NetName=BUZZ Pin=U3-21
+Added Pin To Net: NetName=BUZZ Pin=U3-18
+Added Pin To Net: NetName=RGB_B Pin=U3-19
+Added Pin To Net: NetName=RGB_R Pin=U3-20
+Added Pin To Net: NetName=RGB_G Pin=U3-21

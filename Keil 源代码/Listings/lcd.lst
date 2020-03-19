@@ -1,0 +1,170 @@
+C51 COMPILER V9.54   LCD                                                                   03/15/2020 18:46:41 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE LCD
+OBJECT MODULE PLACED IN .\Objects\lcd.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\Spring Program Files(x86)\MDK4 and MDK5\C51\BIN\C51.EXE lcd.c OPTIMIZE(8,SPE
+                    -ED) BROWSE INCDIR(..\Keil 源代码 - 副本) DEBUG OBJECTEXTEND PRINT(.\Listings\lcd.lst) TABS(2) OBJECT(.\Objects\lcd.obj)
+
+line level    source
+
+   1          
+   2          
+   3          #include "lcd.h"
+   4          
+   5          void write_com(uchar com);
+   6          void write_date(uchar DATA);
+   7          
+   8          
+   9          
+  10          //写指令
+  11          void write_com(uchar com)
+  12          {
+  13   1        LCD_RS=0;
+  14   1        P0=com;
+  15   1        delay_ms(5);
+  16   1        LCD_EN=1;
+  17   1        delay_ms(5);
+  18   1        LCD_EN=0;
+  19   1      }
+  20          //END of Function
+  21          
+  22          
+  23          //写数据
+  24          void write_date(uchar DATA)   
+  25          { 
+  26   1        LCD_RS=1;
+  27   1        P0=DATA;
+  28   1        delay_ms(5);
+  29   1        LCD_EN=1;
+  30   1        delay_ms(5);
+  31   1        LCD_EN=0;
+  32   1      }
+  33          //END of Function
+  34          
+  35          //初始化1602液晶
+  36          void LCD_Init(void)
+  37          {
+  38   1        LCD_EN=0;
+  39   1        write_com(0x38);  //设置16x2显示，5x7点阵，8位数据接口
+  40   1        write_com(0x0c);  //开显示，不显示显示光标
+  41   1        write_com(0x06);  //地址指针和光标自动加1，整屏不移动
+  42   1        write_com(0x01);  //显示清屏，数据指针清零
+  43   1      }
+  44          //END of Function
+  45          
+  46          
+  47          //设置液晶屏显示的起始位置（第x行第y列，及左上角坐标为 [1,1]）
+  48          void SetPoint_xy(uchar x,uchar y)
+  49          {
+  50   1        uchar point = 0x80;
+  51   1        if(x == 2)
+  52   1          point += 0x40;
+  53   1        point += y-1;
+  54   1        write_com(point);
+C51 COMPILER V9.54   LCD                                                                   03/15/2020 18:46:41 PAGE 2   
+
+  55   1      }
+  56          //END of Function
+  57          
+  58          /*
+  59          void desplay_char(unsigned char x,bit y,unsigned char p) //在指定位置显示一个字符。
+  60          { 
+  61            addr_x_y(x,y);
+  62            write_date(p);
+  63          }
+  64          //END of Function
+  65          
+  66          
+  67          
+  68          
+  69          void xs_int(unsigned int shuju,bit t)   //显示一个数字
+  70          {
+  71            unsigned char huancun[6]={0};
+  72            unsigned char biaozhi=0,i;
+  73            if(shuju < 10)
+  74              biaozhi = 1;
+  75            else if(shuju < 100) 
+  76              biaozhi = 2;
+  77            else if(shuju < 1000) 
+  78              biaozhi = 3;
+  79            else if(shuju < 10000)
+  80              biaozhi = 4;
+  81            else if(shuju < 65535) 
+  82              biaozhi = 5;
+  83            switch(biaozhi)
+  84            {
+  85              case 5:
+  86                huancun[5] = shuju/10000; 
+  87              case 4:
+  88                huancun[3] = shuju%10000/1000;
+  89              case 3:
+  90                huancun[2] = shuju%1000/100;
+  91              case 2:
+  92                huancun[1] = shuju%100/10;
+  93              case 1:
+  94                huancun[0] = shuju%10; break;
+  95              default:break;
+  96            }
+  97            for(i=6;i>1;i--)
+  98            {
+  99              if(i==5)
+ 100                desplay_char(10,1,'.');
+ 101              else 
+ 102                desplay_char(15-i,t,0x30+huancun[i-1]); 
+ 103            } 
+ 104            desplay_char(15,t,'V'); 
+ 105          }
+ 106          //END of Function
+ 107          
+ 108          
+ 109          
+ 110          
+ 111          */
+ 112          
+ 113          
+ 114          
+ 115          
+ 116          
+C51 COMPILER V9.54   LCD                                                                   03/15/2020 18:46:41 PAGE 3   
+
+ 117          
+ 118          
+ 119          
+ 120          
+ 121          
+ 122          
+ 123          
+ 124          
+ 125          
+ 126          
+ 127          
+ 128          
+ 129          
+ 130          
+ 131          
+ 132          
+ 133          
+ 134          
+ 135          
+ 136          
+ 137          
+ 138          
+ 139          
+ 140          
+ 141          
+ 142          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     86    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,67 @@
+Removed Pin From Net: NetName=CH340_D+ Pin=J1-2
+Removed Pin From Net: NetName=CH0 Pin=Module1-1
+Change Component Designator: OldDesignator=C8 NewDesignator=C9
+Change Component Designator: OldDesignator=C9 NewDesignator=C10
+Change Component Designator: OldDesignator=C10 NewDesignator=C8
+Change Component Designator: OldDesignator=Module1 NewDesignator=Module2
+Change Component Designator: OldDesignator=Module2 NewDesignator=Module3
+Change Component Designator: OldDesignator=Module3 NewDesignator=Module4
+Change Component Designator: OldDesignator=Module4 NewDesignator=Module5
+Added Component: Designator=J2(Header 2.54_2X4)
+Added Component: Designator=J3(Header 2.54X4)
+Added Component: Designator=Module1(Header F 2.54X4)
+Added Pin To Net: NetName=CH340_D- Pin=J1-2
+Added Pin To Net: NetName=VCC Pin=J2-1
+Added Pin To Net: NetName=VCC Pin=J2-2
+Added Pin To Net: NetName=VCC Pin=J2-3
+Added Pin To Net: NetName=GND Pin=J2-5
+Added Pin To Net: NetName=GND Pin=J2-6
+Added Pin To Net: NetName=GND Pin=J2-7
+Added Pin To Net: NetName=CH0 Pin=Module1-1
+Added Pin To Net: NetName=GND Pin=Module1-3
+Added Pin To Net: NetName=VCC Pin=Module1-4
+Added Pin To Net: NetName=CH1 Pin=Module2-1
+Added Pin To Net: NetName=DIN Pin=U4-1
+Added Pin To Net: NetName=CLK Pin=U4-2
+Added Pin To Net: NetName=CS Pin=U4-3
+Added Pin To Net: NetName=AD_CS Pin=U4-22
+Added Pin To Net: NetName=AD_DI Pin=U4-23
+Added Pin To Net: NetName=AD_DO Pin=U4-24
+Added Pin To Net: NetName=AD_CLK Pin=U4-25
+Added Pin To Net: NetName=IN1 Pin=U4-40
+Added Pin To Net: NetName=IN2 Pin=U4-41
+Added Pin To Net: NetName=IN3 Pin=U4-42
+Added Pin To Net: NetName=IN4 Pin=U4-43
+Added Pin To Net: NetName=DHT11 Pin=U4-44
+Change Net Name : Old Net Name=NetModule3_2 New Net Name=NetModule4_2
+Change Net Name : Old Net Name=NetModule3_3 New Net Name=NetModule4_3
+Change Net Name : Old Net Name=NetModule3_4 New Net Name=NetModule4_4
+Change Net Name : Old Net Name=NetModule3_5 New Net Name=NetModule4_5
+Added Pin To Net: NetName=ALE Pin=J2-4
+Added Pin To Net: NetName=ALE Pin=U4-27
+Added Net: Name=ALE
+Added Pin To Net: NetName=INT0 Pin=Module1-2
+Added Pin To Net: NetName=INT0 Pin=U4-8
+Added Net: Name=INT0
+Added Pin To Net: NetName=INT1 Pin=Module2-2
+Added Pin To Net: NetName=INT1 Pin=U4-9
+Added Net: Name=INT1
+Added Pin To Net: NetName=P4.0 Pin=J3-2
+Added Pin To Net: NetName=P4.0 Pin=U4-17
+Added Net: Name=P4.0
+Added Pin To Net: NetName=P4.1 Pin=J3-4
+Added Pin To Net: NetName=P4.1 Pin=U4-28
+Added Net: Name=P4.1
+Added Pin To Net: NetName=P4.2/INT3 Pin=J3-3
+Added Pin To Net: NetName=P4.2/INT3 Pin=U4-39
+Added Net: Name=P4.2/INT3
+Added Pin To Net: NetName=P4.3/INT2 Pin=J3-1
+Added Pin To Net: NetName=P4.3/INT2 Pin=U4-6
+Added Net: Name=P4.3/INT2
+Added Pin To Net: NetName=PSEN Pin=J2-8
+Added Pin To Net: NetName=PSEN Pin=U4-26
+Added Net: Name=PSEN
+Added Member To Class: ClassName=Sheet_V01 Member=Component J2 Header 2.54_2X4
+Added Member To Class: ClassName=Sheet_V01 Member=Component J3 Header 2.54_4
+Added Member To Class: ClassName=Sheet_V01 Member=Component Module5 DHT11ÎÂÊª¶È´«¸ÐÆ÷
+Added Room: Name=Sheet_V01

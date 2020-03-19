@@ -1,0 +1,10 @@
+".\Objects\STARTUP.obj",
+".\Objects\Tanxiaowei.obj",
+".\Objects\Display.obj",
+".\Objects\Motor.obj",
+".\Objects\lcd.obj",
+".\Objects\Sensor.obj",
+".\Objects\include.obj",
+".\Objects\Usart.obj" 
+TO ".\Objects\TanXiaowei" 
+PRINT(".\Listings\TanXiaowei.m51") RAMSIZE(256) 

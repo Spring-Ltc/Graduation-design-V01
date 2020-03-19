@@ -1,0 +1,35 @@
+Change Component Designator: OldDesignator=R3 NewDesignator=R4
+Added Component: Designator=R3(RES_POT-3362P)
+Added Component: Designator=R5(RES_POT-3362P)
+Added Pin To Net: NetName=GND Pin=LCD1-1
+Added Pin To Net: NetName=VCC Pin=LCD1-2
+Added Pin To Net: NetName=VCC Pin=LCD1-17
+Added Pin To Net: NetName=VCC Pin=LCD1-19
+Added Pin To Net: NetName=GND Pin=LCD1-20
+Added Pin To Net: NetName=GND Pin=LCD2-1
+Added Pin To Net: NetName=VCC Pin=LCD2-2
+Added Pin To Net: NetName=GND Pin=LCD2-5
+Added Pin To Net: NetName=VCC Pin=LCD2-15
+Added Pin To Net: NetName=GND Pin=LCD2-16
+Added Pin To Net: NetName=GND Pin=R3-1
+Added Pin To Net: NetName=GND Pin=R3-2
+Added Pin To Net: NetName=GND Pin=R5-1
+Added Pin To Net: NetName=GND Pin=R5-2
+Added Pin To Net: NetName=51_WR Pin=LCD1-5
+Added Net: Name=51_WR
+Added Pin To Net: NetName=LCD_EN Pin=LCD1-6
+Added Pin To Net: NetName=LCD_EN Pin=LCD2-6
+Added Net: Name=LCD_EN
+Added Pin To Net: NetName=LCD_RD Pin=LCD1-15
+Added Net: Name=LCD_RD
+Added Pin To Net: NetName=LCD_RS Pin=LCD1-4
+Added Pin To Net: NetName=LCD_RS Pin=LCD2-4
+Added Net: Name=LCD_RS
+Added Pin To Net: NetName=NetLCD1_3 Pin=LCD1-3
+Added Pin To Net: NetName=NetLCD1_3 Pin=R3-3
+Added Net: Name=NetLCD1_3
+Added Pin To Net: NetName=NetLCD2_3 Pin=LCD2-3
+Added Pin To Net: NetName=NetLCD2_3 Pin=R5-3
+Added Net: Name=NetLCD2_3
+Added Member To Class: ClassName=Sheet_V01 Member=Component R4 10k
+Added Member To Class: ClassName=Sheet_V01 Member=Component R5 RES_POT

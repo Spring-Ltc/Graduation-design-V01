@@ -1,0 +1,46 @@
+C51 COMPILER V9.54   INCLUDE                                                               03/15/2020 18:46:41 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE INCLUDE
+OBJECT MODULE PLACED IN .\Objects\include.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\Spring Program Files(x86)\MDK4 and MDK5\C51\BIN\C51.EXE include.c OPTIMIZE(8
+                    -,SPEED) BROWSE INCDIR(..\Keil 源代码 - 副本) DEBUG OBJECTEXTEND PRINT(.\Listings\include.lst) TABS(2) OBJECT(.\Objects\i
+                    -nclude.obj)
+
+line level    source
+
+   1          
+   2          
+   3          #include "include.h"
+   4          
+   5          //软件延时函数ms
+   6          void delay_ms(uint ms)
+   7          {
+   8   1         uint x,y;
+   9   1         for(x=ms;x>0;x--)
+  10   1            for(y=110;y>0;y--);
+  11   1      }
+  12          
+  13          
+  14          //软件延时函数us
+  15          //调用delay_us()函数：
+  16          //  调用函数延时6us，入口参数有效值为8倍；
+  17          //  若入口参数为x，则实际延时 6 + 8x  us
+  18          void delay_us(uint us)
+  19          {
+  20   1        while(--us);
+  21   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     40    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
