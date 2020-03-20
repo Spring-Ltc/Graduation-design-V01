@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   LCD                                                                   03/15/2020 18:46:41 PAGE 1   
+C51 COMPILER V9.54   LCD                                                                   03/20/2020 21:04:09 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE LCD
@@ -62,7 +62,7 @@ line level    source
   52   1          point += 0x40;
   53   1        point += y-1;
   54   1        write_com(point);
-C51 COMPILER V9.54   LCD                                                                   03/15/2020 18:46:41 PAGE 2   
+C51 COMPILER V9.54   LCD                                                                   03/20/2020 21:04:09 PAGE 2   
 
   55   1      }
   56          //END of Function
@@ -126,7 +126,7 @@ line level    source
  114          
  115          
  116          
-C51 COMPILER V9.54   LCD                                                                   03/15/2020 18:46:41 PAGE 3   
+C51 COMPILER V9.54   LCD                                                                   03/20/2020 21:04:09 PAGE 3   
 
  117          
  118          

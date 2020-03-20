@@ -403,6 +403,11 @@
               <FileType>1</FileType>
               <FilePath>.\Usart.c</FilePath>
             </File>
+            <File>
+              <FileName>README.txt</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\README.txt</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

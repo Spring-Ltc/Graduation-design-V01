@@ -44,6 +44,7 @@ void main()
 	
 	uint i;
 	
+	Usart_Init();
 	MAX7219_Init();
 	LCD_Init();
 
@@ -65,6 +66,7 @@ void main()
 	FirePipes_Control(90);delay_ms(1500);
 	FirePipes_Control(0);delay_ms(1500);
 	
+	SendTheData();
 	while(1)
 	{
 		color++;

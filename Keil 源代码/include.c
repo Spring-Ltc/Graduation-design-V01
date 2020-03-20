@@ -2,6 +2,16 @@
 
 #include "include.h"
 
+
+uchar temperature = 11;
+uchar humidity = 11;
+uchar smoke = 11;
+uchar DangerType = 11;
+uchar Angle = 11;
+
+
+
+
 //Èí¼şÑÓÊ±º¯Êıms
 void delay_ms(uint ms)
 {

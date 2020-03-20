@@ -22,10 +22,11 @@
 #include "include.h"
 
 
+void ChangeString(uchar date,char *Str_out,uchar len);//×Ö·û´®×ª»»º¯Êý
 
+void SendTheData(void);
 
-
-
+void Usart_Init(void);
 #endif
 
 

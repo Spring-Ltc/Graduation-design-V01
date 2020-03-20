@@ -4,7 +4,7 @@
 
 
 #include "reg52.h"
-
+#include "string.h"
 
 #define uint unsigned int
 #define uchar unsigned char
@@ -53,7 +53,11 @@ sbit MQ_INT1 = P3^3;	//烟雾传感器数字输出端口，接中断引脚
 
 extern uchar code number[10];
 
-
+extern uchar temperature;
+extern uchar humidity;
+extern uchar smoke;
+extern uchar DangerType;
+extern uchar Angle;
 
 											
 										
