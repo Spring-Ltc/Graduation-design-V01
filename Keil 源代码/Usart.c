@@ -47,39 +47,41 @@ void ChangeString(uchar date,char *Str_out,uchar len)
 //发送一个数据帧出去
 void SendTheData(void)
 {
-	char str[16] = {0};	//整个数据帧
-	
+	uchar i;	//发送计数变量
+	char str[17] = {0};	//整个数据帧
+
 	char str1[5] = "smart";	//起始验证位
 	char str2[2] = {0};	//缓存温度值的字符串
 	char str3[2] = {0};	//缓存湿度值的字符串
 	char str4[2] = {0};	//缓存烟雾浓度值的字符串
-	char str5[1] = {0};	//危险类型
-	char str6[2] = {0};//消防管道开合角度
-	
-	char str7[2] = "ok";	//结束标志位
-	
-	uchar i;	//发送计数变量
+	char str5[2] = {0};	//缓存危险等级
+	char str6[1] = {0};	//危险类型
+	char str7[1] = {0};//消防管道开合状态
+	char str8[2] = "ok";	//结束标志位
 
 	
 	//将校验标识以及数据转换成字符添加到字符串里面
-	strcpy(str,str1);	//添加起始位，5位，用于验证用户0+5=5
+	strcpy(str,str1);	//添加起始位，5位，用于验证用户		//起始0
 	
 	ChangeString(temperature,str2,2);
-	strncat(str,str2,2);	//在后面拼接温度值5+2=7
+	strncat(str,str2,2);	//在后面拼接温度值						//起始5
 	
 	ChangeString(humidity,str3,2);
-	strncat(str,str3,2);//在后面拼接湿度值7+2=9
+	strncat(str,str3,2);//在后面拼接湿度值							//起始7
 	
 	ChangeString(smoke,str4,2);
-	strncat(str,str4,2);//在后面拼接烟雾浓度值9+2=11
+	strncat(str,str4,2);//在后面拼接烟雾浓度值					//起始9
 	
-	ChangeString(DangerType,str5,1);
-	strncat(str,str5,1);//在后面拼接危险类型11+1=12
+	ChangeString(DangerLevel,str5,2);
+	strncat(str,str5,2);//拼接危险等级									//起始11
 	
-	ChangeString(Angle,str6,2);
-	strncat(str,str6,2);//在后面拼接消防管道开合角度12+2=14
+	ChangeString(DangerType,str6,1);
+	strncat(str,str6,1);//在后面拼接危险类型						//起始13
 	
-	strcat(str,str7);//在后面拼接消防管道开合角度14+2=16
+	ChangeString(Angle,str7,1);
+	strncat(str,str7,1);//在后面拼接消防管道开合状态		//起始14
+	
+	strcat(str,str8);//在后面拼接消防管道开合角度				//起始15
 
 	for(i=0;i<16;i++)
 	{

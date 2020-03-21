@@ -8,7 +8,7 @@ uchar humidity = 11;
 uchar smoke = 11;
 uchar DangerType = 11;
 uchar Angle = 11;
-
+uchar DangerLevel = 0;
 
 
 

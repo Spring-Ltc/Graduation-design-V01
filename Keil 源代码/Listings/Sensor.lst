@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   SENSOR                                                                03/20/2020 21:04:09 PAGE 1   
+C51 COMPILER V9.54   SENSOR                                                                03/21/2020 18:06:13 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE SENSOR
@@ -62,7 +62,7 @@ line level    source
   51   3            delay_us(3);  //实际延时30us  //26--28us过后，数据0为低电平，数据1为高电平
   52   3            onebit = DHT11;
   53   3            value[i] += onebit;
-C51 COMPILER V9.54   SENSOR                                                                03/20/2020 21:04:09 PAGE 2   
+C51 COMPILER V9.54   SENSOR                                                                03/21/2020 18:06:13 PAGE 2   
 
   54   3            time = 50;
   55   3            while(DHT11 == 1);  //等待信号1的高电平传输完成
@@ -126,7 +126,7 @@ line level    source
  112   2          temp <<=1;
  113   2          if(AD_DO == 1)
  114   2            temp |=0x01;
-C51 COMPILER V9.54   SENSOR                                                                03/20/2020 21:04:09 PAGE 3   
+C51 COMPILER V9.54   SENSOR                                                                03/21/2020 18:06:13 PAGE 3   
 
  115   2        }
  116   1      

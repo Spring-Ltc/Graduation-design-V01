@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   INCLUDE                                                               03/20/2020 21:04:09 PAGE 1   
+C51 COMPILER V9.54   INCLUDE                                                               03/21/2020 18:06:13 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE INCLUDE
@@ -19,7 +19,7 @@ line level    source
    8          uchar smoke = 11;
    9          uchar DangerType = 11;
   10          uchar Angle = 11;
-  11          
+  11          uchar DangerLevel = 0;
   12          
   13          
   14          
@@ -47,7 +47,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =      5    ----
+   DATA SIZE        =      6    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

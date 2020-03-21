@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   TANXIAOWEI                                                            03/20/2020 21:04:08 PAGE 1   
+C51 COMPILER V9.54   TANXIAOWEI                                                            03/21/2020 18:06:13 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE TANXIAOWEI
@@ -35,111 +35,143 @@ line level    source
   22          #include "lcd.h"    //1602液晶显示相关文件
   23          #include "Display.h"  //显示单元，包括MAX7219驱动数码管，RGB灯，【额外把蜂鸣器写在这里面】
   24          #include "Sensor.h"   //传感器相关，包括DHT11温湿度传感器，MQ-2烟雾传感器（AD转换和数字量触发中断）
-  25          
-  26          
-  27          #include "Motor.h"    //步进电机相关
-  28          #include "Usart.h"    //串口收发相关
-  29          
-  30          uchar  str[11] = "Spring_Text";
+  25          #include "Motor.h"    //步进电机相关
+  26          #include "Usart.h"    //串口收发相关
+  27          
+  28          uchar code  str1[8] = "Temp: 11";
+  29          uchar code  str2[8] = "Humi: 22";
+  30          uchar code  str3[6] = "close";
   31          
-  32          //uint tab[4] = {0xfe,0xfd,0xfb,0xf7};  //每次只有一个管脚输出低电平，电机转动
-  33          
+  32          void Display_Init(void);
+  33          uchar Judge(uchar tem,uchar hum,uchar smo);
   34          
   35          
-  36          
-  37          void main()
-  38          {
-  39   1        uchar temperature=1,humidity=1;   //定义温湿度采集值
-  40   1        uchar state;  //定义DHT11错误类型
-  41   1        int color=1;  //定义颜色变化值
-  42   1        uint AD_value;  //定义烟雾浓度传感器的模拟值
-  43   1        
-  44   1        
-  45   1        uint i;
+  36          void main()
+  37          {
+  38   1        uchar state;  //定义DHT11错误类型
+  39   1        int color=1;  //定义颜色变化值
+  40   1      
+  41   1        Usart_Init(); //初始化串口
+  42   1        MAX7219_Init(); //初始化数码管显示驱动
+  43   1        LCD_Init(); //初始化1602液晶屏
+  44   1      
+  45   1        Display_Init();
   46   1        
-  47   1        Usart_Init();
-  48   1        MAX7219_Init();
-  49   1        LCD_Init();
-  50   1      
-  51   1        //测试lcd液晶
-C51 COMPILER V9.54   TANXIAOWEI                                                            03/20/2020 21:04:08 PAGE 2   
+  47   1        
+  48   1        
+  49   1        FM_TurnON();
+  50   1        delay_ms(300);
+  51   1        FM_TurnOFF();
+C51 COMPILER V9.54   TANXIAOWEI                                                            03/21/2020 18:06:13 PAGE 2   
 
-  52   1        SetPoint_xy(1,2);
-  53   1        for(i=0;i<11;i++)
-  54   1        {
-  55   2          write_date(str[i]);
-  56   2        }
-  57   1        
-  58   1        
-  59   1        
-  60   1        FM_TurnON();
-  61   1        delay_ms(300);
-  62   1        FM_TurnOFF();
-  63   1        
-  64   1        FirePipes_Control(90);delay_ms(1500);
-  65   1        FirePipes_Control(0);delay_ms(1500);
-  66   1        FirePipes_Control(90);delay_ms(1500);
-  67   1        FirePipes_Control(0);delay_ms(1500);
-  68   1        
-  69   1        SendTheData();
-  70   1        while(1)
-  71   1        {
-  72   2          color++;
-  73   2          RGB_TurnON(color%3+1);
-  74   2          delay_ms(600);
-  75   2          RGB_TurnOFF(color%3+1); //正常运行LED闪烁提示
-  76   2          
-  77   2          FirePipes_Control(45);
-  78   2          
+  52   1        
+  53   1        FirePipes_Control(45);
+  54   1        
+  55   1        while(1)
+  56   1        {
+  57   2          color++;
+  58   2          RGB_TurnON(color%3+1);
+  59   2          delay_ms(600);
+  60   2          RGB_TurnOFF(color%3+1); //正常运行LED闪烁提示
+  61   2          
+  62   2          
+  63   2          state = DHT11_GetValue(&temperature,&humidity); //采集温湿度
+  64   2          smoke = Get_AD_Value(0);  //采集烟雾浓度
+  65   2          smoke = smoke*100/256;
+  66   2          
+  67   2          DangerLevel = Judge(temperature,humidity,smoke);  //返回危险等级
+  68   2          
+  69   2          SetPoint_xy(1,7);
+  70   2          write_date('0' + temperature/10);write_date('0' + temperature%10);    //更新显示温度值
+  71   2          SetPoint_xy(2,7);
+  72   2          write_date('0' + humidity/10);write_date('0' + humidity%10);    //更新显示湿度值
+  73   2      
+  74   2          
+  75   2          Write7219(3,number[DangerLevel/10]);
+  76   2          Write7219(4,number[DangerLevel%10]);    //显示危险等级
+  77   2          Write7219(7,number[smoke/10]);
+  78   2          Write7219(8,number[smoke%10]);    //显示烟雾浓度值
   79   2          
-  80   2          state = DHT11_GetValue(&temperature,&humidity); //采集温湿度
-  81   2          AD_value = Get_AD_Value(0); //采集烟雾浓度
-  82   2          
-  83   2          Write7219(1,number[temperature/10]);
-  84   2          Write7219(2,number[temperature%10]);
-  85   2          Write7219(7,number[humidity/10]);
-  86   2          Write7219(8,number[humidity%10]);
-  87   2      
-  88   2          SetPoint_xy(2,2);
-  89   2          write_date('0' + AD_value/100);
-  90   2          write_date('0' + AD_value/10%10);
-  91   2          write_date('0' + AD_value%10);
-  92   2          
-  93   2        }
-  94   1      }
-  95          
-  96          //END of Function
-  97          
-  98          
-  99          
- 100          
- 101          
- 102          
- 103          
- 104          
- 105          
- 106          
- 107          
- 108          
- 109          
- 110          
- 111          
- 112          
- 113          
-C51 COMPILER V9.54   TANXIAOWEI                                                            03/20/2020 21:04:08 PAGE 3   
+  80   2          SetPoint_xy(1,15);
+  81   2          write_date('0' + DangerType/10);write_date('0' + DangerType%10);  //临时显示危险类型，调试用
+  82   2      
+  83   2          SendTheData();//发送一次数据
+  84   2        }
+  85   1      }
+  86          
+  87          //END of Function
+  88          
+  89          
+  90          //显示初始化，显示目录和初始状态
+  91          void Display_Init(void)
+  92          {
+  93   1        uchar i;
+  94   1        SetPoint_xy(1,1); //显示温度标识
+  95   1        for(i=0;i<8;i++)
+  96   1        {
+  97   2          write_date(str1[i]);
+  98   2        }
+  99   1        write_date(0xdf);write_date('C'); //显示单位
+ 100   1        
+ 101   1        
+ 102   1        
+ 103   1        SetPoint_xy(2,1); //显示湿度标识
+ 104   1        for(i=0;i<8;i++)
+ 105   1        {
+ 106   2          write_date(str2[i]);
+ 107   2        }
+ 108   1        write_date('%');  //显示单位
+ 109   1        
+ 110   1        
+ 111   1        SetPoint_xy(2,12);  //显示消防管道开合状态
+ 112   1        for(i=0;i<5;i++)
+ 113   1        {
+C51 COMPILER V9.54   TANXIAOWEI                                                            03/21/2020 18:06:13 PAGE 3   
 
- 114          
- 115          
- 116          
+ 114   2          write_date(str3[i]);
+ 115   2        }
+ 116   1      }
  117          
+ 118          
+ 119          //输入传感器采集结果，输出危险等级
+ 120          uchar Judge(uchar tem,uchar hum,uchar smo)
+ 121          {
+ 122   1        uchar  result = 0;
+ 123   1        uchar type1 = 0,type2 = 0,type3 = 0;
+ 124   1        
+ 125   1        result = tem*3 + hum*2 + smo*5 ;
+ 126   1        
+ 127   1        result /= 10;
+ 128   1        
+ 129   1        if(tem > 35)
+ 130   1          type1 = 1; //温度过高 只能采集0--50°C
+ 131   1        if(hum < 30)
+ 132   1          type2 = 3; //湿度过低 只能采集20%--90%
+ 133   1        if(smo > 30)
+ 134   1          type3 = 5; //烟雾浓度 转化后范围0--100
+ 135   1        
+ 136   1        DangerType = type1 + type2 + type3 ;
+ 137   1        return result;
+ 138   1      }
+ 139          
+ 140          
+ 141          
+ 142          
+ 143          
+ 144          
+ 145          
+ 146          
+ 147          
+ 148          
+ 149          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    369    ----
-   CONSTANT SIZE    =   ----    ----
+   CODE SIZE        =    491    ----
+   CONSTANT SIZE    =     22    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     11       9
+   DATA SIZE        =   ----       5
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

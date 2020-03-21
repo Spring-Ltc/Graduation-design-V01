@@ -58,7 +58,7 @@ extern uchar humidity;
 extern uchar smoke;
 extern uchar DangerType;
 extern uchar Angle;
-
+extern uchar DangerLevel;
 											
 										
 void delay_ms(uint ms);		//Èí¼şÑÓÊ±
