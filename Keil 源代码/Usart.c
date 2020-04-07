@@ -9,13 +9,19 @@ void Usart_Init(void)
 	SCON = 0x50;	//串口工作方式1
 	TMOD = 0x20;		//定时器1工作方式2，8位自动重装初值
 	TH1 = 0xfd;
-	TL1 = 0xfd;
+	TL1 = 0xfd;	//设置初值，使波特率为9600
+	//PCON |= 0x80;//SMOD = 1，保留这句波特率增加一倍为19200
+	
+//	TH1 = 0xfe;
+//	TL1 = 0xfe;	//保留这两句，覆盖原来的初值，使波特率为28800
+	
+	
 	ES = 1;		//允许串口接收中断
 	TR1 = 1;	//定时器1开始计数，产生波特率时钟
 	EA = 1;//开总中断
 
 }
-
+//StopFlag
 
 
 
@@ -78,12 +84,12 @@ void SendTheData(void)
 	ChangeString(DangerType,str6,1);
 	strncat(str,str6,1);//在后面拼接危险类型						//起始13
 	
-	ChangeString(Angle,str7,1);
+	ChangeString(Motor_State,str7,1);
 	strncat(str,str7,1);//在后面拼接消防管道开合状态		//起始14
 	
 	strcat(str,str8);//在后面拼接消防管道开合角度				//起始15
 
-	for(i=0;i<16;i++)
+	for(i=0;i<17;i++)
 	{
 		SBUF = str[i];
 		while(TI == 0);	//等待一个byte发送完成后，TI由硬件置1
@@ -94,3 +100,42 @@ void SendTheData(void)
 
 }
 //End of Function
+
+
+
+
+//接收一个数据帧
+uchar receive_buf[20] = {0};
+uchar receive_State = 0;
+	//res_State的最高位为状态位，为1表示正在处理数据，暂不接收数据
+	//													为0表示接收空闲，可以接收数据
+void UsartReceive() interrupt 4
+{
+	uchar receive;
+	
+	if(RI)
+	{
+		receive = SBUF;	//接收一个字符
+		if((receive_State & 0x80) != 0x80)
+		{
+			if(receive == 'E')
+			{
+				ES = 0;//暂时关串口中断，等待处理完成
+				receive_State |= 0x80;//最高位置1，表示接收完一帧
+			}
+			else
+			{
+				receive_buf[receive_State & 0x7f] = receive;	//缓存一个字节到数组;receive_State的低7位位数组地址
+				receive_State++;//数据统计加1
+			}
+			RI =0;//清中断标志
+		}
+	}
+}
+//End of Function
+
+
+
+
+
+

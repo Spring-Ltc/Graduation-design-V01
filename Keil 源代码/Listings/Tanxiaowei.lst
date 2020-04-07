@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   TANXIAOWEI                                                            03/21/2020 18:06:13 PAGE 1   
+C51 COMPILER V9.54   TANXIAOWEI                                                            04/07/2020 16:44:55 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE TANXIAOWEI
@@ -46,132 +46,297 @@ line level    source
   33          uchar Judge(uchar tem,uchar hum,uchar smo);
   34          
   35          
-  36          void main()
-  37          {
-  38   1        uchar state;  //定义DHT11错误类型
-  39   1        int color=1;  //定义颜色变化值
-  40   1      
-  41   1        Usart_Init(); //初始化串口
-  42   1        MAX7219_Init(); //初始化数码管显示驱动
-  43   1        LCD_Init(); //初始化1602液晶屏
-  44   1      
-  45   1        Display_Init();
-  46   1        
-  47   1        
-  48   1        
-  49   1        FM_TurnON();
-  50   1        delay_ms(300);
-  51   1        FM_TurnOFF();
-C51 COMPILER V9.54   TANXIAOWEI                                                            03/21/2020 18:06:13 PAGE 2   
+  36          uchar Temp_limit = 50;
+  37          uchar Humi_limit = 50;
+  38          uchar Smok_limit = 50;
+  39          uchar level_limit1 = 30;//危险等级阈值1，超过后LED闪烁警示，蜂鸣器间断性鸣叫
+  40          uchar level_limit2 = 40;//危险等级阈值2，超过后蜂鸣器LED闪烁警示，蜂鸣器长鸣
+  41          uchar receive_len =0; //APP端配置参数接收的字符串长度
+  42          
+  43          int color=1;  //定义颜色变化值
+  44          
+  45          uchar SystemConfig(void);
+  46          void Smart_CarryOut(void);
+  47          
+  48          
+  49          void main()
+  50          {
+  51   1        uchar state;  //定义DHT11错误类型
+C51 COMPILER V9.54   TANXIAOWEI                                                            04/07/2020 16:44:55 PAGE 2   
 
-  52   1        
-  53   1        FirePipes_Control(45);
-  54   1        
-  55   1        while(1)
-  56   1        {
-  57   2          color++;
-  58   2          RGB_TurnON(color%3+1);
-  59   2          delay_ms(600);
-  60   2          RGB_TurnOFF(color%3+1); //正常运行LED闪烁提示
-  61   2          
-  62   2          
-  63   2          state = DHT11_GetValue(&temperature,&humidity); //采集温湿度
-  64   2          smoke = Get_AD_Value(0);  //采集烟雾浓度
-  65   2          smoke = smoke*100/256;
-  66   2          
-  67   2          DangerLevel = Judge(temperature,humidity,smoke);  //返回危险等级
-  68   2          
-  69   2          SetPoint_xy(1,7);
-  70   2          write_date('0' + temperature/10);write_date('0' + temperature%10);    //更新显示温度值
-  71   2          SetPoint_xy(2,7);
-  72   2          write_date('0' + humidity/10);write_date('0' + humidity%10);    //更新显示湿度值
-  73   2      
-  74   2          
-  75   2          Write7219(3,number[DangerLevel/10]);
-  76   2          Write7219(4,number[DangerLevel%10]);    //显示危险等级
-  77   2          Write7219(7,number[smoke/10]);
-  78   2          Write7219(8,number[smoke%10]);    //显示烟雾浓度值
-  79   2          
-  80   2          SetPoint_xy(1,15);
-  81   2          write_date('0' + DangerType/10);write_date('0' + DangerType%10);  //临时显示危险类型，调试用
-  82   2      
-  83   2          SendTheData();//发送一次数据
-  84   2        }
-  85   1      }
-  86          
-  87          //END of Function
-  88          
-  89          
-  90          //显示初始化，显示目录和初始状态
-  91          void Display_Init(void)
-  92          {
-  93   1        uchar i;
-  94   1        SetPoint_xy(1,1); //显示温度标识
-  95   1        for(i=0;i<8;i++)
+  52   1        uchar Config_tag = 1;//标记系统未完成初始化配置
+  53   1        uchar i =0;   //用到的循环标记变量
+  54   1      
+  55   1        Usart_Init(); //初始化串口
+  56   1        MAX7219_Init(); //初始化数码管显示驱动
+  57   1        LCD_Init(); //初始化1602液晶屏
+  58   1        Display_Init();
+  59   1      
+  60   1        FM_TurnON();
+  61   1        delay_ms(300);
+  62   1        FM_TurnOFF();     //系统上电启动提示音
+  63   1      
+  64   1        while(Config_tag)//先进行系统配置
+  65   1        {
+  66   2          //接收到APP远端配置系统命令
+  67   2          if((receive_State & 0x80) == 0x80)//最高位置1，接收完一帧
+  68   2          {
+  69   3            Config_tag = SystemConfig();
+  70   3            if(Config_tag)
+  71   3            {
+  72   4              SBUF = '0' + Config_tag;  //配置失败提示
+  73   4              while(TI == 0); //等待一个byte发送完成后，TI由硬件置1
+  74   4              TI = 0; //清除标志位，准备下一次发送
+  75   4              
+  76   4              SBUF = '+' ;  //配置失败提示
+  77   4              while(TI == 0); //等待一个byte发送完成后，TI由硬件置1
+  78   4              TI = 0; //清除标志位，准备下一次发送
+  79   4              
+  80   4              for(i=0;i<receive_len;i++)  //返回接收到的数据
+  81   4              {
+  82   5                SBUF = receive_buf[i];  
+  83   5                while(TI == 0); //等待一个byte发送完成后，TI由硬件置1
+  84   5                TI = 0; //清除标志位，准备下一次发送
+  85   5              }
+  86   4              
+  87   4            }
+  88   3            receive_State = 0;  //处理完数据，清除标志位，准备下一次接收
+  89   3            ES = 1;
+  90   3          }
+  91   2          
+  92   2        }
+  93   1        ES = 0;   //已经配置成功，关闭串口接收中断
+  94   1      
+  95   1        while(1)
   96   1        {
-  97   2          write_date(str1[i]);
-  98   2        }
-  99   1        write_date(0xdf);write_date('C'); //显示单位
- 100   1        
- 101   1        
- 102   1        
- 103   1        SetPoint_xy(2,1); //显示湿度标识
- 104   1        for(i=0;i<8;i++)
- 105   1        {
- 106   2          write_date(str2[i]);
- 107   2        }
- 108   1        write_date('%');  //显示单位
- 109   1        
- 110   1        
- 111   1        SetPoint_xy(2,12);  //显示消防管道开合状态
- 112   1        for(i=0;i<5;i++)
- 113   1        {
-C51 COMPILER V9.54   TANXIAOWEI                                                            03/21/2020 18:06:13 PAGE 3   
+  97   2      
+  98   2          state = DHT11_GetValue(&temperature,&humidity); //采集温湿度
+  99   2          smoke = Get_AD_Value(0);  //采集烟雾浓度
+ 100   2          smoke = smoke*100/256;  //归一化处理
+ 101   2          
+ 102   2          DangerLevel = Judge(temperature,humidity,smoke);  //返回当前危险等级和类型
+ 103   2          
+ 104   2          SetPoint_xy(1,7);
+ 105   2          write_date('0' + temperature/10);write_date('0' + temperature%10);    //更新显示温度值
+ 106   2          SetPoint_xy(2,7);
+ 107   2          write_date('0' + humidity/10);write_date('0' + humidity%10);    //更新显示湿度值
+ 108   2          Write7219(7,number[smoke/10]);
+ 109   2          Write7219(8,number[smoke%10]);    //更新显示烟雾浓度值
+ 110   2          Write7219(3,number[DangerLevel/10]);
+ 111   2          Write7219(4,number[DangerLevel%10]);    //更新显示危险等级
+ 112   2          
+ 113   2          delay_ms(100);  //连续发送数据太快，蓝牙就会卡死//尝试1：提高通信波特率19200
+C51 COMPILER V9.54   TANXIAOWEI                                                            04/07/2020 16:44:55 PAGE 3   
 
- 114   2          write_date(str3[i]);
- 115   2        }
- 116   1      }
- 117          
- 118          
- 119          //输入传感器采集结果，输出危险等级
- 120          uchar Judge(uchar tem,uchar hum,uchar smo)
- 121          {
- 122   1        uchar  result = 0;
- 123   1        uchar type1 = 0,type2 = 0,type3 = 0;
- 124   1        
- 125   1        result = tem*3 + hum*2 + smo*5 ;
- 126   1        
- 127   1        result /= 10;
- 128   1        
- 129   1        if(tem > 35)
- 130   1          type1 = 1; //温度过高 只能采集0--50°C
- 131   1        if(hum < 30)
- 132   1          type2 = 3; //湿度过低 只能采集20%--90%
- 133   1        if(smo > 30)
- 134   1          type3 = 5; //烟雾浓度 转化后范围0--100
- 135   1        
- 136   1        DangerType = type1 + type2 + type3 ;
- 137   1        return result;
- 138   1      }
- 139          
- 140          
- 141          
- 142          
- 143          
- 144          
- 145          
- 146          
- 147          
- 148          
- 149          
+ 114   2          SendTheData();//发送一次数据
+ 115   2          
+ 116   2          Smart_CarryOut();//本地端决策处理
+ 117   2      
+ 118   2          
+ 119   2          SetPoint_xy(1,15);
+ 120   2          write_date('0' + DangerType/10);write_date('0' + DangerType%10);  //临时显示危险类型，调试用
+ 121   2      
+ 122   2          
+ 123   2        }
+ 124   1      }
+ 125          
+ 126          //END of Function
+ 127          
+ 128          
+ 129          //显示初始化，显示目录和初始状态
+ 130          void Display_Init(void)
+ 131          {
+ 132   1        uchar i;
+ 133   1        SetPoint_xy(1,1); //显示温度标识
+ 134   1        for(i=0;i<8;i++)
+ 135   1        {
+ 136   2          write_date(str1[i]);
+ 137   2        }
+ 138   1        write_date(0xdf);write_date('C'); //显示单位
+ 139   1        
+ 140   1        
+ 141   1        
+ 142   1        SetPoint_xy(2,1); //显示湿度标识
+ 143   1        for(i=0;i<8;i++)
+ 144   1        {
+ 145   2          write_date(str2[i]);
+ 146   2        }
+ 147   1        write_date('%');  //显示单位
+ 148   1        
+ 149   1        
+ 150   1        SetPoint_xy(2,12);  //显示消防管道开合状态
+ 151   1        for(i=0;i<5;i++)
+ 152   1        {
+ 153   2          write_date(str3[i]);
+ 154   2        }
+ 155   1        
+ 156   1        Write7219(1,heng);Write7219(2,heng);Write7219(3,heng);Write7219(4,heng);
+ 157   1        Write7219(5,heng);Write7219(6,heng);Write7219(7,heng);Write7219(8,heng);
+ 158   1        
+ 159   1        
+ 160   1      }
+ 161          //StopFlag
+ 162          
+ 163          
+ 164          //输入传感器采集结果，输出危险等级
+ 165          uchar Judge(uchar tem,uchar hum,uchar smo)
+ 166          {
+ 167   1        uchar  result = 0;
+ 168   1        uchar type1 = 0,type2 = 0,type3 = 0;
+ 169   1      
+ 170   1        if(tem > Temp_limit)
+ 171   1        {
+ 172   2          type1 = 1; //温度过高 只能采集0--50°C
+ 173   2          result += (tem - Temp_limit);
+ 174   2        }
+ 175   1        if(hum < Humi_limit)
+C51 COMPILER V9.54   TANXIAOWEI                                                            04/07/2020 16:44:55 PAGE 4   
+
+ 176   1        {
+ 177   2          type2 = 3; //湿度过低 只能采集20%--90%
+ 178   2          result += (Humi_limit - hum);
+ 179   2        }
+ 180   1        if(smo > Smok_limit)
+ 181   1        {
+ 182   2          type3 = 5; //烟雾浓度 转化后范围0--100
+ 183   2          result += (smo - Smok_limit);
+ 184   2        }
+ 185   1        
+ 186   1        DangerType = type1 + type2 + type3 ;
+ 187   1        return result;
+ 188   1      }
+ 189          
+ 190          //StopFlag
+ 191          
+ 192          
+ 193          //APP远端配置系统参数
+ 194          //参数：温度阈值、湿度阈值、浓度阈值、危险等级1、危险等级2
+ 195          //配置成功则返回0，配置失败返回1
+ 196          uchar SystemConfig(void)
+ 197          {
+ 198   1        uchar i;
+ 199   1        receive_len = receive_State & 0x7f;//提取接收字符串长度
+ 200   1        
+ 201   1        i=0;
+ 202   1        Temp_limit =0;
+ 203   1        while((receive_buf[i] != ';') && (receive_len --))//提取第1个分号前的内容：温度阈值
+ 204   1        {
+ 205   2          Temp_limit *= 10;
+ 206   2          Temp_limit += receive_buf[i] - '0';
+ 207   2          i++;
+ 208   2        }
+ 209   1        if(Temp_limit>99)
+ 210   1          return 1;
+ 211   1        
+ 212   1        i++;  //跳过分号
+ 213   1        Humi_limit =0;
+ 214   1        while((receive_buf[i] != ';') && (receive_len --))//提取第2个分号前的内容：湿度阈值
+ 215   1        {
+ 216   2          Humi_limit *=10;
+ 217   2          Humi_limit += receive_buf[i] - '0';
+ 218   2          i++;
+ 219   2        }
+ 220   1        if(Humi_limit>99)
+ 221   1          return 2;
+ 222   1        
+ 223   1        i++;//跳过分号
+ 224   1        Smok_limit =0;
+ 225   1        while((receive_buf[i] != ';') && (receive_len --))//提取第3个分号前的内容：浓度阈值
+ 226   1        {
+ 227   2          Smok_limit *=10;
+ 228   2          Smok_limit += receive_buf[i] - '0';
+ 229   2          i++;
+ 230   2        }
+ 231   1        if(Smok_limit>99)
+ 232   1          return 3;
+ 233   1        
+ 234   1        i++;//跳过分号
+ 235   1        level_limit1 =0;
+ 236   1        while((receive_buf[i] != ';') && (receive_len --))//提取第4个分号前的内容：危险等级1阈值
+ 237   1        {
+C51 COMPILER V9.54   TANXIAOWEI                                                            04/07/2020 16:44:55 PAGE 5   
+
+ 238   2          level_limit1 *=10;
+ 239   2          level_limit1 += receive_buf[i] - '0';
+ 240   2          i++;
+ 241   2        }
+ 242   1        if(level_limit1>99)
+ 243   1          return 4;
+ 244   1        
+ 245   1        
+ 246   1        i++;//跳过分号
+ 247   1        level_limit2 =0;
+ 248   1        while((receive_buf[i] != ';') && (receive_len --))//提取第5个分号前的内容：危险等级2阈值
+ 249   1        {
+ 250   2          level_limit2 *=10;
+ 251   2          level_limit2 += receive_buf[i] - '0';
+ 252   2          i++;
+ 253   2        }
+ 254   1        if(level_limit2>99)
+ 255   1          return 5;
+ 256   1        
+ 257   1      
+ 258   1          FM_TurnON();
+ 259   1          delay_ms(300);
+ 260   1          FM_TurnOFF();   //数据设置成功提示音
+ 261   1      
+ 262   1        
+ 263   1        
+ 264   1        return 0;//返回配置成功结果
+ 265   1      }
+ 266          //StopFlag
+ 267          
+ 268          
+ 269          
+ 270          //智能处理
+ 271          void Smart_CarryOut(void)
+ 272          {
+ 273   1        if(DangerLevel > level_limit2)//超过危险等级2
+ 274   1        {
+ 275   2          Motor_open();//打开水管灭火
+ 276   2          FM_TurnON();//蜂鸣器长鸣
+ 277   2          
+ 278   2          color++;
+ 279   2          RGB_TurnON(color%3+1);
+ 280   2          delay_ms(100);
+ 281   2          RGB_TurnOFF(color%3+1); //LED闪烁提示
+ 282   2          delay_ms(50);
+ 283   2        }
+ 284   1        else if(DangerLevel > level_limit1)//超过危险等级1
+ 285   1        {
+ 286   2          Motor_close();//暂不灭火，仅警报
+ 287   2          
+ 288   2          color++;
+ 289   2          RGB_TurnON(color%3+1);
+ 290   2          FM_TurnON();
+ 291   2          delay_ms(100);
+ 292   2          RGB_TurnOFF(color%3+1); //LED闪烁提示
+ 293   2          FM_TurnOFF();
+ 294   2          delay_ms(50);
+ 295   2        }
+ 296   1        else//安全
+ 297   1        {
+ 298   2          Motor_close();//关闭水管
+ 299   2          FM_TurnOFF();//关闭蜂鸣器
+C51 COMPILER V9.54   TANXIAOWEI                                                            04/07/2020 16:44:55 PAGE 6   
+
+ 300   2          RGB_TurnON(green);//绿色常量表示安全
+ 301   2          RGB_TurnOFF(red);
+ 302   2          RGB_TurnOFF(blue);  //关闭另外两种颜色灯光
+ 303   2        }
+ 304   1      }
+ 305          //StopFlag
+ 306          
+ 307          
+ 308          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    491    ----
+   CODE SIZE        =   1038    ----
    CONSTANT SIZE    =     22    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----       5
+   DATA SIZE        =      8       5
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

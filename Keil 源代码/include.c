@@ -7,7 +7,7 @@ uchar temperature = 11;
 uchar humidity = 11;
 uchar smoke = 11;
 uchar DangerType = 11;
-uchar Angle = 11;
+uchar Motor_State = 3;
 uchar DangerLevel = 0;
 
 

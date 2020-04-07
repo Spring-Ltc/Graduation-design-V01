@@ -39,7 +39,7 @@ void Write7219 (uint Adress,uint Date)
 void MAX7219_Init(void)
 {
    Write7219 (Mode,0x00);	//选择 No Code 
-   Write7219 (Brightness,0x07);	//亮度调节
+   Write7219 (Brightness,0x01);	//亮度调节
    Write7219 (Size,0x07);	//数码管位数，8位全选
    Write7219 (Down,0x01);	//正常工作模式0x01（省电模式为0x00）
    Write7219 (Text,0x00);	//显示测试

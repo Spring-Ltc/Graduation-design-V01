@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MOTOR                                                                 03/21/2020 18:06:13 PAGE 1   
+C51 COMPILER V9.54   MOTOR                                                                 04/07/2020 16:44:55 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MOTOR
@@ -13,73 +13,71 @@ line level    source
    2          
    3          #include "Motor.h"
    4          
-   5          
-   6          uchar tab[4] = {0xfe,0xfd,0xfb,0xf7}; //每次只有一个管脚输出低电平，电机转动
+   5          #define Motor_Step  120   //步进电机脉冲数，控制开关角度
+   6          #define speed 5     //控制电机转速
    7          
-   8          
-   9          //控制消防管道开合程度
-  10          //入口参数角度（范围0---90°，这里用旋转的转数模拟角度）
-  11          //0°表示闭合，90°表示全开
-  12          void FirePipes_Control(uchar angle)
-  13          {
-  14   1        static uchar State = 0; //静态局部变量，用于保存管道开合状态
-  15   1        uchar angleChange = 0;  //需要的角度变化量
-  16   1        uint i; //计数变量
-  17   1        uchar speed = 5;
-  18   1        
-  19   1        if(angle == State || angle > 90 || angle < 0)
-  20   1          return; //本来就是这个状态或超出范围，忽略该次控制指令
-  21   1        
-  22   1        if(angle > State)//开大,正向转动指定圈数
-  23   1        {
-  24   2          angleChange = angle-State;
-  25   2          //angleChange /=22;
-  26   2          while(--angleChange)
-  27   2          {
-  28   3            for(i=0;i<4;i++)
-  29   3            {
-  30   4              P1 &= tab[i];
-  31   4              delay_ms(speed);
-  32   4              P1 |= 0x0f;
-  33   4            }
-  34   3          }
-  35   2        }
-  36   1        else  //关小，反向转动指定圈速
-  37   1        {
-  38   2          angleChange = State-angle;
-  39   2          //angleChange /=22;
-  40   2          while(--angleChange)
-  41   2          {
-  42   3            for(i=4;i>0;i--)
-  43   3            {
-  44   4              P1 &= tab[i-1];
-  45   4              delay_ms(speed);
-  46   4              P1 |= 0x0f;
-  47   4            }
-  48   3          }
-  49   2        }
-  50   1        State = angle;//保存状态
-  51   1      }
-  52          //END of Function
-  53          
-C51 COMPILER V9.54   MOTOR                                                                 03/21/2020 18:06:13 PAGE 2   
+   8          uchar tab[4] = {0xfe,0xfd,0xfb,0xf7}; //每次只有一个管脚输出低电平，电机转动
+   9          
+  10          void Motor_open(void)
+  11          {
+  12   1        uchar i =0;
+  13   1        uchar step;
+  14   1        step = Motor_Step;
+  15   1        if(Motor_State > 5)//本来就是打开的
+  16   1          return;
+  17   1        else
+  18   1        {
+  19   2          while(--step)
+  20   2          {
+  21   3            for(i=0;i<4;i++)
+  22   3            {
+  23   4              P1 &= tab[i];
+  24   4              delay_ms(speed);
+  25   4              P1 |= 0x0f;
+  26   4            }
+  27   3          }
+  28   2          Motor_State = 7;  
+  29   2        }
+  30   1      }
+  31          //END of Function
+  32          
+  33          
+  34          void Motor_close(void)
+  35          {
+  36   1        uchar i =0;
+  37   1        uchar step;
+  38   1        step = Motor_Step;
+  39   1        if(Motor_State < 5)//本来就是关闭的
+  40   1          return;
+  41   1        else
+  42   1        {
+  43   2          while(--step)
+  44   2          {
+  45   3            for(i=4;i>0;i--)
+  46   3            {
+  47   4              P1 &= tab[i-1];
+  48   4              delay_ms(speed);
+  49   4              P1 |= 0x0f;
+  50   4            }
+  51   3          }
+  52   2          Motor_State = 3;
+  53   2        }
+C51 COMPILER V9.54   MOTOR                                                                 04/07/2020 16:44:55 PAGE 2   
 
-  54          
-  55          
+  54   1      }
+  55          //END of Function
   56          
   57          
   58          
   59          
-  60          
-  61          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    159    ----
+   CODE SIZE        =    112    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =      5       5
+   DATA SIZE        =      4       4
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

@@ -23,9 +23,8 @@
 
 extern uchar tab[4];
 
-
-void FirePipes_Control(uchar angle);
-
+void Motor_open(void);
+void Motor_close(void);
 
 
 #endif

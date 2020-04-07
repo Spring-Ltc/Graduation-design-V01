@@ -37,9 +37,9 @@ sbit LCD_RD = P3^7;
 sbit DHT11 = P1^4;	//温湿度传感器接口
 
 sbit AD_CS = P2^4;	//ADC0832使能端
-sbit AD_DI = P2^5;	
+sbit AD_CLK = P2^5;	
 sbit AD_DO = P2^6;
-sbit AD_CLK = P2^7;	//ADC0832时钟输入
+sbit AD_DI = P2^7;	//ADC0832时钟输入
 
 sbit MQ_INT0 = P3^2;
 sbit MQ_INT1 = P3^3;	//烟雾传感器数字输出端口，接中断引脚
@@ -57,7 +57,7 @@ extern uchar temperature;
 extern uchar humidity;
 extern uchar smoke;
 extern uchar DangerType;
-extern uchar Angle;
+extern uchar Motor_State;
 extern uchar DangerLevel;
 											
 										

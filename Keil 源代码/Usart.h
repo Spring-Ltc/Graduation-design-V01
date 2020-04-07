@@ -27,6 +27,11 @@ void ChangeString(uchar date,char *Str_out,uchar len);//×Ö·û´®×ª»»º¯Êý
 void SendTheData(void);
 
 void Usart_Init(void);
+
+extern uchar receive_buf[20];
+extern uchar receive_State;
+
+
 #endif
 
 
